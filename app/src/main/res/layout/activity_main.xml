@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.marty.track.MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:text="START FOREGROUND TRACKING"
+        android:id="@+id/b_action"
+        android:tag="s"
+        android:onClick="OnButtonClick"
+        android:layout_above="@id/b_service"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="START BACKGROUND TRACKING"
+        android:id="@+id/b_service"
+        android:tag="s"
+        android:layout_alignParentBottom="true"
+        android:onClick="OnButtonClick"
+        style="@style/Base.Widget.AppCompat.Button.Colored" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+</RelativeLayout>
