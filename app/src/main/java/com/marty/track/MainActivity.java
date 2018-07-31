@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         isServiceStarted = getSharedPreferences("track",MODE_PRIVATE).getBoolean("isServiceStarted",false);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            isServiceStarted = LocationJobService.isJobRunning;
+        }else{
+            isServiceStarted = false;
+        }*/
         changeServiceButton(isServiceStarted);
         if(!registered&&isServiceStarted) {
             IntentFilter i = new IntentFilter(JOB_STATE_CHANGED);
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 stopJobService = new Intent(LocationJobService.ACTION_STOP_JOB);
                 LocalBroadcastManager.getInstance(getBaseContext()).sendBroadcast(stopJobService);
+                changeServiceButton(false);
             }else{
                 Toast.makeText(getApplicationContext(),"yet to be coded - stop service",Toast.LENGTH_SHORT).show();
             }
