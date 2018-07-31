@@ -199,16 +199,17 @@ public class MainActivity extends AppCompatActivity {
         assert jobScheduler != null;
         jobScheduler.schedule(new JobInfo.Builder(LocationJobService.LOCATION_SERVICE_JOB_ID,
                 new ComponentName(this, LocationJobService.class))
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setMinimumLatency(500)
+                .setOverrideDeadline(500)
+                .setPersisted(true)
+                .setRequiresDeviceIdle(false)
                 .build());
     }
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setSmallestDisplacement(10);
+        mLocationRequest.setInterval(30000);
+        mLocationRequest.setFastestInterval(15000);
+        mLocationRequest.setSmallestDisplacement(50);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
@@ -399,6 +400,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateMarker(Location location) {
+        if(location == null){
+            return;
+        }
         if(mMap!=null && mapLoaded){
             if(carMarker==null) {
                 oldLocation = location;
