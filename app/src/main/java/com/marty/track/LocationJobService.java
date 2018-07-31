@@ -246,14 +246,16 @@ public class LocationJobService extends JobService implements GoogleApiClient.Co
             assert notificationManager != null;
             notificationManager.createNotificationChannel(mChannel);
         }
-        assert notificationManager != null;
-        notificationManager.notify(0, notification);
+        /*assert notificationManager != null;
+        notificationManager.notify(0, notification);*/
+        startForeground(1,notification); //for foreground service, don't use 0 as id. it will not work.
     }
 
     private void removeNotification(){
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        /*NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert notificationManager != null;
-        notificationManager.cancel(0);
+        notificationManager.cancel(0);*/ //use this for normal service
+        stopForeground(true); // use this for foreground service
     }
 
     private void stopLocationUpdates() {
